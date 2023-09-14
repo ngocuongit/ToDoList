@@ -1,0 +1,505 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,700;1,400&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Ubuntu", sans-serif;
+  overflow: auto;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.App {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  // overflow: hidden;
+}
+
+/* sidebar */
+
+.sidebar {
+  width: 300px;
+  min-width: 250px;
+  height: 100%;
+  //   padding: 15px;
+}
+
+/* Main */
+
+.main {
+  width: 100%;
+  height: 100%;
+  background-image: url("./img/bg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 1rem;
+  border-bottom: 1px solid #ebedeb;
+
+  &-logo {
+    width: 50px;
+    height: 50px;
+    // border-radius: 50%;
+    // border: 1px solid #cac5c5;
+  }
+
+  &-name {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+
+  &-link {
+    text-decoration: none;
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+  }
+}
+.modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba($color: #000000, $alpha: 0.8);
+  z-index: 99;
+
+  &-container {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -25%);
+    background-color: white;
+  }
+}
+.todo-form {
+  padding: 1rem 1rem calc(1rem + 40px) 1rem;
+  width: 450px;
+  background: white;
+  border-radius: 4px;
+
+  input {
+    padding: 1rem;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    border: none;
+    font-size: 1.2rem;
+  }
+  input:focus {
+    outline: none;
+    border-bottom: 1px solid #0080ff;
+  }
+
+  &-title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  &-title > p {
+    margin-left: 10px;
+    font-size: 1.2rem;
+    font-weight: 400;
+  }
+  &-remind {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+  }
+  &-date {
+    padding: 1.5rem 1.5rem 0 1.5rem;
+  }
+  &-time {
+    padding: 1.5rem;
+  }
+  &-projects {
+    padding: 0.5rem;
+
+    &-list {
+      padding: 1rem 1rem 1rem;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    &-name {
+      font-size: 1.2rem;
+      padding: 0.5rem;
+      border: 1px solid #0080ff;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    &-list .active {
+      background: #0080ff;
+      color: white;
+    }
+  }
+
+  &-cancel {
+    position: absolute;
+    right: 5px;
+    top: 0;
+    cursor: pointer;
+  }
+  &-confirm {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    margin-top: 40px;
+  }
+  &-confirm > button {
+    width: 100%;
+    height: 40px;
+    background: #0080ff;
+    color: white;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 0 0 4px 4px;
+    cursor: pointer;
+    text-transform: capitalize;
+  }
+}
+
+/* Add new todo */
+.add-todo {
+  border-bottom: 1px solid #ebedeb;
+
+  &-btn {
+    padding: 1rem;
+    width: 100%;
+    height: 70px;
+  }
+  &-btn > button {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 3px;
+    font-size: 1rem;
+    background-color: #0080ff;
+    color: white;
+    font-weight: bold;
+  }
+  button:hover {
+    filter: brightness(1.1);
+    transition: all 0.3ms ease;
+  }
+}
+
+/* Calendar */
+.calendar {
+  padding: 1rem;
+  border-bottom: 1px solid #ebedeb;
+
+  &-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  &-title > p {
+    font-size: 1.2rem;
+    font-weight: 400;
+  }
+  &-btn {
+    border-radius: 50%;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    // align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  &-btn:hover {
+    background-color: #ebedeb;
+    transition: background 300ms ease-in-out;
+  }
+  &-content {
+    list-style: none;
+    padding: 0.5rem;
+  }
+  &-item {
+    padding: 0.25rem;
+    margin: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+}
+
+/* Projects */
+.projects {
+  padding: 1rem;
+  border-bottom: 1px solid #ebedeb;
+
+  &-top {
+    display: flex;
+    align-items: center;
+    // justify-content: space-between;
+  }
+  &-title {
+    display: flex;
+    align-items: center;
+    flex: 1;
+  }
+  &-title > p {
+    margin-left: 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+
+  &-actions {
+    display: flex;
+    align-items: center;
+  }
+  &-actions > span .edit {
+    margin-right: 5px;
+  }
+  &-actions > span {
+    border-radius: 50%;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &-actions > span:hover {
+    background-color: #ebebeb;
+    transition: background 300ms ease-in-out;
+  }
+
+  &-content {
+    padding: 0.5rem;
+  }
+}
+
+.project {
+  position: relative;
+  display: flex;
+  align-items: center;
+  // justify-content: space-between;
+  padding: 0.25rem;
+  margin: 5px;
+
+  &-name {
+    cursor: pointer;
+    word-break: break-all;
+  }
+  &-actions {
+    display: flex;
+    align-items: center;
+  }
+  &-btn {
+    position: absolute;
+    right: 0;
+    display: flex;
+  }
+  &-btn > span {
+    border-radius: 50%;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 300ms ease-in-out;
+  }
+  &-btn > span:hover {
+    background-color: #ebedeb;
+    transition: all 300ms ease-in-out;
+  }
+  &-total {
+    position: absolute;
+    right: 0;
+    background: #ebebeb;
+    width: 25px;
+    height: 25px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+}
+
+/** AddNewProject**/
+
+/* ProjectForm*/
+.projectForm {
+  display: block;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 4px;
+  position: relative;
+  padding-bottom: 80px;
+
+  input {
+    padding: 1rem;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    border: none;
+    font-size: 1.2rem;
+  }
+  input:focus {
+    outline: none;
+    border-bottom: 1px solid #0080ff;
+  }
+  &-cancel {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50%;
+    height: 40px;
+    border: none;
+    border-radius: 0 0 0 4px;
+    font-size: 1.4rem;
+    background-color: #bebebe;
+    color: white;
+    text-align: center;
+    border-bottom-left-radius: 4px;
+    cursor: pointer;
+  }
+  &-confirm {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 50%;
+    height: 40px;
+    border: none;
+    border-bottom-right-radius: 4px;
+    font-size: 1.4rem;
+    text-align: center;
+    text-transform: capitalize;
+    background-color: #0080ff;
+    color: white;
+    cursor: pointer;
+  }
+  &-cancel,
+  &-confirm :hover {
+    filter: brightness(1.1);
+    transition: all 300ms ease;
+  }
+}
+
+/* Todos */
+.todos {
+  width: 450px;
+  height: 80%;
+  background: white;
+
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+
+  border-radius: 4px;
+  opacity: 0.9;
+  padding: 1rem;
+
+  &-title {
+    text-transform: capitalize;
+    font-size: 1.2rem;
+    padding-bottom: 2px;
+    border-bottom: 1px solid #eeeeee;
+  }
+
+  &-list {
+    overflow-y: auto;
+  }
+}
+
+/* Todo */
+
+.todo {
+  &-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.5rem;
+  }
+  &-content {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+  }
+  &-content > span {
+    font-size: 0.8rem;
+    color: #bebebe;
+  }
+  &-actions {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .todo-content .line {
+    position: absolute;
+    height: 1px;
+    width: 0;
+    top: 25%;
+    background: #bebebe;
+    transition: width 240ms ease-in-out;
+  }
+  .todo-content .line-though {
+    width: 100%;
+  }
+}
+
+/* Edit todo*/
+.edit {
+  position: absolute;
+  height: 80%;
+  width: 450px;
+  left: calc(40px + 450px + 40px);
+  bottom: 40px;
+
+  background: white;
+  border-radius: 4px;
+  opacity: 0.9;
+  display: flex;
+  flex-direction: column;
+
+  &-title {
+    padding: 1rem;
+    text-transform: capitalize;
+    font-size: 1.2rem;
+    padding-bottom: 2px;
+    border-bottom: 1px solid #eeeeee;
+  }
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.next7Day {
+  &-title {
+    margin: 5px;
+    display: flex;
+    gap: 5px;
+  }
+  &-name {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  &-todos {
+    margin-left: 10px;
+  }
+}
